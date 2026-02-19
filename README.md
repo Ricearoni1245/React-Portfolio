@@ -84,6 +84,11 @@ Create `contact-api/.env` from `contact-api/.env.example` and set your real Turn
 - systemd unit template: `ops/jody-contact-api.service`
 - Nginx reverse proxy snippet: `ops/nginx-contact-api.conf`
 
+## License
+
+This project is licensed under the MIT License.  
+See `LICENSE` for full text.
+
 ## Author
 
 ### Jody Holt
