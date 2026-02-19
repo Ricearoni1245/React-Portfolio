@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Oxanium:wght@200..800&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+/* Base design tokens that generate classes like bg-primary, text-text, etc. */
+@theme {
+  --color-bg: #0e1116; /* defaults = Theme A */
+  --color-text: #e1e8ee;
+  --color-primary: #3d8eff;
+  --color-secondary: #1a1f26;
+  --color-tertiary: #00c9a7;
+  --color-contrast: #9ca3af;
+
+  --font-main: "IBM Plex Sans", sans-serif;
+  --font-title: "Oxanium", sans-serif;
+  --font-name:   "Quantico", sans-serif;  
+
+}
+
+/* A–E themes: override the same tokens inside an attribute scope */
+html[data-theme="a"] {
+  --color-bg: #0e1116;
+  --color-secondary: #1a1f26;
+  --color-text: #e1e8ee;
+  --color-primary: #3d8eff;
+  --color-tertiary: #00c9a7;
+  --color-contrast: #9ca3af;
+}
+
+html[data-theme="b"] {
+  --color-bg: #120e0e;
+  --color-secondary: #1c1818;
+  --color-text: #fefcfb;
+  --color-primary: #ff7043;
+  --color-tertiary: #ffd166;
+  --color-contrast: #a3948c;
+}
+
+html[data-theme="c"] {
+  --color-bg: #0d1318;
+  --color-secondary: #1b242c;
+  --color-text: #e8ecef;
+  --color-primary: #00a3c4;
+  --color-tertiary: #ff8a70;
+  --color-contrast: #9ca3af;
+}
+
+html[data-theme="d"] {
+  --color-bg: #0f1014;
+  --color-secondary: #1d1f24;
+  --color-text: #eaecef;
+  --color-primary: #7743d8;
+  --color-tertiary: #a97bff;
+  --color-contrast: #9ca3af;
+}
+
+html[data-theme="e"] {
+  --color-bg: #0c1114;
+  --color-secondary: #182127;
+  --color-text: #edeff1;
+  --color-primary: #00d2a2;
+  --color-tertiary: #ffca57;
+  --color-contrast: #9ca3af;
+}
+
+/* theme-aware hero color follows --color-primary */
+:root {
+  --hero-core: var(--color-primary);
+}
+
+@layer utilities {
+  /* Mobile / default */
+ .bg-hero {
+    background:
+      /* Top-right radial accent, similar to desktop */ radial-gradient(
+        120% 100% at 80% 10%,
+        color-mix(in oklab, var(--color-primary) 32%, transparent) 0%,
+        transparent 60%
+      ),
+      /* Slight linear sweep from top to bottom */
+        linear-gradient(
+          120deg,
+          #0a0d13 0%,
+          var(--color-bg) 20%,
+          color-mix(in oklab, var(--color-primary) 15%, var(--color-bg) 90%)
+            100%
+        );
+  }
+
+  /* Desktop override */
+  @media (min-width: 768px) {
+    .bg-hero {
+      background:
+        /* small, softer highlight lower than the portrait rim */ radial-gradient(
+          95% 70% at 50% 28%,
+          color-mix(in oklab, var(--hero-core) 24%, transparent 82%) 0%,
+          transparent 56%
+        ),
+        /* gentle bottom vignette for depth */
+          radial-gradient(
+            130% 90% at 50% 120%,
+            rgba(0, 0, 0, 0.32) 0%,
+            rgba(0, 0, 0, 0) 58%
+          ),
+        /* base linear sweep */
+          linear-gradient(
+            185deg,
+            #0b0f15 0%,
+            var(--color-bg) 40%,
+            color-mix(in oklab, var(--hero-core) 12%, var(--color-bg) 88%) 100%
+          );
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  /* Theme A – deep blue */
+  html[data-theme="a"] .bg-hero {
+    background: radial-gradient(
+        135% 120% at 80% 48%,
+        color-mix(in oklab, var(--color-primary) 50%, black 35%) 0%,
+        color-mix(in oklab, var(--color-primary) 70%, black 55%) 38%,
+        transparent 90%
+      ),
+      linear-gradient(
+        230deg,
+        #080b10 0%,
+        color-mix(in oklab, var(--color-bg) 70%, black 30%) 46%,
+        #0a1324 100%
+      );
+  }
+
+  html[data-theme="b"] .bg-hero {
+    background: radial-gradient(
+        140% 110% at 76% 46%,
+        color-mix(in oklab, var(--color-primary) 50%, black 40%) 0%,
+        color-mix(in oklab, var(--color-primary) 70%, black 60%) 36%,
+        transparent 82%
+      ),
+      linear-gradient(
+        230deg,
+        #140c0b 0%,
+        var(--color-bg) 20%,
+        color-mix(in oklab, var(--color-secondary) 6%, var(--color-bg) 94%) 100%
+      );
+  }
+  /* Theme C – teal/cyan */
+  html[data-theme="c"] .bg-hero {
+    background: radial-gradient(
+        140% 120% at 76% 48%,
+        color-mix(in oklab, var(--color-primary) 50%, black 42%) 0%,
+        color-mix(in oklab, var(--color-primary) 70%, black 60%) 36%,
+        transparent 82%
+      ),
+      linear-gradient(
+        230deg,
+        #081016 0%,
+        color-mix(in oklab, var(--color-bg) 62%, black 38%) 44%,
+        #0a1822 100%
+      );
+  }
+
+  /* Theme D – indigo/violet */
+  html[data-theme="d"] .bg-hero {
+    background: radial-gradient(
+        135% 120% at 80% 48%,
+        color-mix(in oklab, var(--color-primary) 50%, black 40%) 0%,
+        color-mix(in oklab, var(--color-primary) 70%, black 62%) 36%,
+        transparent 82%
+      ),
+      linear-gradient(
+        230deg,
+        #090a10 0%,
+        color-mix(in oklab, var(--color-bg) 68%, black 32%) 46%,
+        #111328 100%
+      );
+  }
+
+  /* Theme E – emerald */
+  html[data-theme="e"] .bg-hero {
+    background: radial-gradient(
+        140% 120% at 78% 48%,
+        color-mix(in oklab, var(--color-primary) 50%, black 42%) 0%,
+        color-mix(in oklab, var(--color-primary) 70%, black 62%) 34%,
+        transparent 82%
+      ),
+      linear-gradient(
+        230deg,
+        #07100e 0%,
+        color-mix(in oklab, var(--color-bg) 64%, black 36%) 44%,
+        #0a1c1a 100%
+      );
+  }
+}
+@media (min-width: 768px) {
+  .bg-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    /* left-to-right fade of darkness */
+    background: linear-gradient(
+      270deg,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.34) 16%,
+      rgba(0, 0, 0, 0.18) 35%,
+      rgba(0, 0, 0, 0) 50%
+    ),
+      linear-gradient(
+        270deg,
+        rgba(0,0,0,0.6) 0%,
+        rgba(0,0,0,0.48) 25%,
+        rgba(0,0,0,0.1) 60%
+      );
+    ;
+    z-index: 0;
+  }
+  /* keep content above the overlay */
+  .bg-hero > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@layer utilities {
+  .img-glow {
+    background:
+      radial-gradient(
+        68% 68% at 50% 42%,       
+        color-mix(in oklab, var(--color-primary) 100%, black 0%) 0%,
+        color-mix(in oklab, var(--color-primary) 70%, black 30%) 40%,
+        color-mix(in oklab, var(--color-primary) 45%, black 55%) 70%,
+        color-mix(in oklab, var(--color-primary) 20%, black 80%) 85%
+      ),
+      radial-gradient(
+        80% 80% at 50% 50%,        
+        rgba(0,0,0,0) 58%,
+        rgba(0,0,0,0.35) 78%,
+        rgba(0,0,0,0.55) 100%
+      );
+    box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ── Keyframes ─────────────────────────────────────────── */
+/* ── Keyframes (unchanged) ───────────────────────────── */
+@keyframes ui-fade-in { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+@keyframes ui-pop-in  { from{opacity:0;transform:scale(.96);filter:blur(2px)} to{opacity:1;transform:scale(1);filter:blur(0)} }
+@keyframes ui-fade    { from{opacity:0} to{opacity:1} }
+/* Old→new gradient crossfade */
+@keyframes hero-xfade-out { from { opacity: 1 } to { opacity: 0 } }
+
+/* When html has .hero-xfade, paint the OLD gradient on ::after and fade it out */
+html.hero-xfade .bg-hero {
+  position: relative; /* anchor overlay */
+}
+html.hero-xfade .bg-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;                /* above everything but below menus if needed */
+  pointer-events: none;
+  background-image: var(--hero-bg-prev, none);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: hero-xfade-out .55s ease-out forwards; /* match your new durations */
+}
+
+/* Ensure the base gradient is behind content as usual */
+.bg-hero > * { position: relative; z-index: 3; }
+
+
+/* Respect reduced motion (unchanged) */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+/* ── Helpers (longer durations) ──────────────────────── */
+.anim-base   { transition: transform .24s ease, opacity .24s ease, filter .24s ease, color .24s ease, background-color .24s ease, border-color .24s ease; }
+.anim-fade-in{ animation: ui-fade-in .55s cubic-bezier(.22,.61,.36,1) both; } /* 550ms */
+.anim-pop-in { animation: ui-pop-in  .48s cubic-bezier(.22,.61,.36,1) both; } /* 480ms */
+.anim-fade   { animation: ui-fade    .45s ease-out both; }                    /* 450ms */
+
+/* Optional: slightly gentler hover/tap */
+.hover-pop:hover   { transform: translateY(-2px) scale(1.03); transition-duration: .24s; }
+.hover-pop:active  { transform: translateY(0) scale(.98);    transition-duration: .14s; }
+
+/* ── Theme fade-on-switch (keeps it simple) ──────────── */
+/* When the theme changes (html[data-theme] switches), the hero softly fades in */
+html[data-theme] .bg-hero { animation: ui-fade .5s ease-out both; }  /* 500ms */
+

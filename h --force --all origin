@@ -1,0 +1,35 @@
+[33mcommit 4d5e05061c508d7207acd9afc1d7a686f39e7b2c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Ricearoni1245 <jholt1008@gmail.com>
+Date:   Wed Feb 18 22:58:19 2026 -0600
+
+    Remove tracked env files
+
+[33mcommit a7b80c8318ea4ee3280e3d227f3a44e1f185bd3f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31mgithub/main[m[33m)[m
+Author: Ricearoni1245 <jholt1008@gmail.com>
+Date:   Wed Feb 18 22:39:03 2026 -0600
+
+    fix: added better origin handling for contact form submission
+
+[33mcommit 0ae4affe2095e9a1a6968744bfaa52d5e3559eaf[m
+Author: Ricearoni1245 <jholt1008@gmail.com>
+Date:   Wed Feb 18 22:25:00 2026 -0600
+
+    added different domain types to origin allowed to see if that will work
+
+[33mcommit 30e6c23bac21878911b95517a9260cdf4c0b5fe1[m
+Author: Ricearoni1245 <jholt1008@gmail.com>
+Date:   Wed Feb 18 22:23:08 2026 -0600
+
+    removed duplicate reference of allowed_origin in env (bruh moment)
+
+[33mcommit 5f0d87ce2afc6ecc11eebd9107780ed717ecef08[m
+Author: Ricearoni1245 <jholt1008@gmail.com>
+Date:   Wed Feb 18 22:18:15 2026 -0600
+
+    added origin allowed for contact in env
+
+[33mcommit beca15d9bf7c60c25d2c7af7f06555902973991d[m
+Author: Ricearoni1245 <jholt1008@gmail.com>
+Date:   Wed Feb 18 22:14:16 2026 -0600
+
+     added env

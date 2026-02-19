@@ -1,0 +1,64 @@
+name: Deploy Jody's App
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: vps-host
+    env:
+      CONTACT_HEALTH_URL: https://jodyholt.com/api/health
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Frontend Dependencies
+        run: npm ci
+
+      - name: Build Frontend
+        run: npm run build
+
+      - name: Install Contact API Dependencies
+        run: npm ci --prefix contact-api
+
+      - name: Build Contact API
+        run: npm run build --prefix contact-api
+
+      - name: Sync Frontend Files
+        run: |
+          mkdir -p /var/www/jody/dist
+          rm -rf /var/www/jody/dist/*
+          cp -r dist/* /var/www/jody/dist/
+
+      - name: Sync Contact API Runtime Files
+        run: |
+          mkdir -p /var/www/jody/contact-api
+          rm -rf /var/www/jody/contact-api/dist
+          cp -r contact-api/dist /var/www/jody/contact-api/
+          cp contact-api/package.json /var/www/jody/contact-api/
+          cp contact-api/package-lock.json /var/www/jody/contact-api/
+
+      - name: Install Contact API Production Dependencies
+        run: |
+          cd /var/www/jody/contact-api
+          npm ci --omit=dev
+
+      - name: Restart Contact API
+        run: |
+          set -euo pipefail
+          SYSTEMCTL_BIN="/usr/bin/systemctl"
+          if [ ! -x "$SYSTEMCTL_BIN" ]; then
+            SYSTEMCTL_BIN="/bin/systemctl"
+          fi
+          sudo -n "$SYSTEMCTL_BIN" restart jody-contact-api
+          sudo -n "$SYSTEMCTL_BIN" is-active --quiet jody-contact-api
+          echo "jody-contact-api service is active"
+
+      - name: Health Check Contact API
+        run: |
+          curl --fail --show-error --silent \
+            --retry 8 \
+            --retry-delay 2 \
+            --retry-all-errors \
+            "$CONTACT_HEALTH_URL"
